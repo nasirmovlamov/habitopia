@@ -1,13 +1,31 @@
 import { useHabitService } from "@/hooks/useHabitsHook";
 import { HabitType } from "@/model/HabitType";
 import { useHabitStore } from "@/store/useHabitTaskStore";
+import useSound from "use-sound";
 
 export const Habit = ({ habit }: { habit: HabitType }) => {
+  const [playIncreaseSound] = useSound(
+    "https://habitica.com/static/audio/rosstavoTheme/Plus_Habit.ogg"
+  );
+  const [playDecreaseSound] = useSound(
+    "https://habitica.com/static/audio/rosstavoTheme/Minus_Habit.ogg"
+  );
   const {
     increaseStreak: increaseCounter,
     decreaseStreak: decreaseCounter,
     remove: removeHabit,
   } = useHabitStore();
+
+  const handleIncrease = () => {
+    increaseCounter(habit.id);
+    playIncreaseSound();
+  };
+
+  const handleDecrease = () => {
+    decreaseCounter(habit.id);
+    playDecreaseSound();
+  };
+
   return (
     <div className="relative flex justify-between  bg-gray-100   text-black text-start">
       <button
@@ -30,7 +48,7 @@ export const Habit = ({ habit }: { habit: HabitType }) => {
         </svg>
       </button>
       <button
-        onClick={() => increaseCounter(habit.id)}
+        onClick={handleIncrease}
         className="bg-green-500 p-3 text-white grid place-items-center"
       >
         +
@@ -42,7 +60,7 @@ export const Habit = ({ habit }: { habit: HabitType }) => {
         <div className=" w-full">{habit.counter}</div>
       </div>
       <button
-        onClick={() => decreaseCounter(habit.id)}
+        onClick={handleDecrease}
         className="bg-red-500  p-3 text-white  grid place-items-center"
       >
         -

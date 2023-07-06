@@ -1,12 +1,42 @@
 import { DailyTaskType } from "@/model/DailyTaskType";
 import { useDailyTaskStore } from "@/store/useDailyTaskStore";
+import useSound from "use-sound";
 
 export const DailyTask = ({ dailyTask }: { dailyTask: DailyTaskType }) => {
-  const { remove: removeDailyTask } = useDailyTaskStore();
+  const [play] = useSound(
+    "https://habitica.com/static/audio/rosstavoTheme/Daily.ogg"
+  );
+  const { remove: removeDailyTask, complete, uncomplete } = useDailyTaskStore();
+
+  const completeTask = () => {
+    complete(dailyTask.id);
+    play();
+  };
+  const unCompleteTask = () => {
+    uncomplete(dailyTask.id);
+    play();
+  };
+
+  const handleCompletionOfTask = () => {
+    if (dailyTask.hasCompleted) {
+      unCompleteTask();
+      return;
+    }
+    completeTask();
+    play();
+  };
 
   return (
     <div className="relative flex justify-between  bg-gray-100   text-black text-start">
-      <div className="flex flex-col w-full p-5">
+      <div className="flex flex-col py-5 px-2">
+        <input
+          type="checkbox"
+          onClick={handleCompletionOfTask}
+          checked={dailyTask.hasCompleted}
+          className="w-8 h-8"
+        />
+      </div>
+      <div className="flex flex-col w-full py-5 ">
         <div className="text-2xl w-full">{dailyTask.name}</div>
         <div className=" w-full">{dailyTask.description}</div>
         <div className=" w-full">{dailyTask.startDate}</div>

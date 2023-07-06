@@ -82,12 +82,7 @@ export const useHabitStore = create<HabitStoreType>((set) => ({
       state.updateOnLocalStorage(habits);
       const reward = habits.find((habit) => habit.id === id)?.reward;
       if (reward) {
-        useProfileStore.setState((profileState) => ({
-          profile: {
-            ...profileState.profile,
-            gp: profileState.profile.gp + reward,
-          },
-        }));
+        useProfileStore.getState().gainGp(reward);
       }
       return {
         habits: habits,
@@ -106,6 +101,10 @@ export const useHabitStore = create<HabitStoreType>((set) => ({
         return t;
       });
       state.updateOnLocalStorage(habits);
+      const reward = habits.find((habit) => habit.id === id)?.reward;
+      if (reward) {
+        useProfileStore.getState().gainGp(-reward);
+      }
       return {
         habits: habits,
       };

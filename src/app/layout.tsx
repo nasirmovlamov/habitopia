@@ -1,12 +1,7 @@
+import { Header } from "@/components/Header";
 import "./globals.css";
 import { Inter } from "next/font/google";
 
-import { createContext, useContext } from "react";
-import { createStore, useStore } from "zustand";
-
-const store = createStore(); // vanilla store without hooks
-
-const StoreContext = createContext({});
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -28,7 +23,8 @@ export default function RootLayout({
           <span className="text-blue-500">habit</span>
           <span className="text-green-500">opia</span>
         </h1>
-        <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
+        <Header />
+        {children}
       </body>
     </html>
   );

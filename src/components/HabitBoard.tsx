@@ -40,7 +40,7 @@ export const HabitBoard = () => {
       <div className="text-2xl w-full">
         <span>Habits</span>
       </div>
-      <form onSubmit={handleSubmit} className="w-full">
+      <form onSubmit={handleSubmit} className="w-full  mt-5">
         <input
           name="task"
           type="text"

@@ -1,5 +1,6 @@
 import { DailyTaskType } from "@/model/DailyTaskType";
 import { create } from "zustand";
+import { useProfileStore } from "./useProfileStore";
 
 type DailyTaskStoreType = {
   dailyTasks: DailyTaskType[];
@@ -8,6 +9,8 @@ type DailyTaskStoreType = {
   update: (task: DailyTaskType) => void;
   init: () => void;
   updateOnLocalStorage: (tasks: DailyTaskType[]) => void;
+  complete: (id: number) => void;
+  uncomplete: (id: number) => void;
 };
 
 export const useDailyTaskStore = create<DailyTaskStoreType>((set) => ({
@@ -28,7 +31,7 @@ export const useDailyTaskStore = create<DailyTaskStoreType>((set) => ({
     }
   },
 
-  completeTask: (id: number) => {
+  complete: (id: number) => {
     set((state) => {
       const tasks = state.dailyTasks.map((task) => {
         if (task.id === id) {
@@ -39,6 +42,32 @@ export const useDailyTaskStore = create<DailyTaskStoreType>((set) => ({
         }
         return task;
       });
+      const reward = tasks.find((task) => task.id === id)?.reward;
+      if (reward) {
+        useProfileStore.getState().gainGp(reward);
+      }
+      state.updateOnLocalStorage(tasks);
+      return {
+        dailyTasks: tasks,
+      };
+    });
+  },
+
+  uncomplete: (id: number) => {
+    set((state) => {
+      const tasks = state.dailyTasks.map((task) => {
+        if (task.id === id) {
+          return {
+            ...task,
+            hasCompleted: false,
+          };
+        }
+        return task;
+      });
+      const reward = tasks.find((task) => task.id === id)?.reward;
+      if (reward) {
+        useProfileStore.getState().gainGp(-reward);
+      }
       state.updateOnLocalStorage(tasks);
       return {
         dailyTasks: tasks,
