@@ -19,6 +19,8 @@ export const DailyBoard = () => {
       name: e.target.task.value,
       description: "test",
       startDate: new Date().toISOString(),
+      reward: 10,
+      hasCompleted: false,
     });
   };
 

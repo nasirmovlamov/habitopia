@@ -1,5 +1,6 @@
 import { HabitType } from "@/model/HabitType";
 import { create } from "zustand";
+import { useProfileStore } from "./useProfileStore";
 
 type HabitStoreType = {
   habits: HabitType[];
@@ -79,6 +80,15 @@ export const useHabitStore = create<HabitStoreType>((set) => ({
         return t;
       });
       state.updateOnLocalStorage(habits);
+      const reward = habits.find((habit) => habit.id === id)?.reward;
+      if (reward) {
+        useProfileStore.setState((profileState) => ({
+          profile: {
+            ...profileState.profile,
+            gp: profileState.profile.gp + reward,
+          },
+        }));
+      }
       return {
         habits: habits,
       };

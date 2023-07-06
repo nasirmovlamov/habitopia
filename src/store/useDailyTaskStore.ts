@@ -1,6 +1,4 @@
 import { DailyTaskType } from "@/model/DailyTaskType";
-import { ResponseService } from "@/services/ResponseService";
-import { get } from "http";
 import { create } from "zustand";
 
 type DailyTaskStoreType = {
@@ -29,6 +27,25 @@ export const useDailyTaskStore = create<DailyTaskStoreType>((set) => ({
       }
     }
   },
+
+  completeTask: (id: number) => {
+    set((state) => {
+      const tasks = state.dailyTasks.map((task) => {
+        if (task.id === id) {
+          return {
+            ...task,
+            hasCompleted: true,
+          };
+        }
+        return task;
+      });
+      state.updateOnLocalStorage(tasks);
+      return {
+        dailyTasks: tasks,
+      };
+    });
+  },
+
   updateOnLocalStorage: (tasks: DailyTaskType[]) => {
     set((state) => {
       localStorage.setItem("dailyTasks", JSON.stringify(tasks));

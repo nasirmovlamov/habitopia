@@ -4,4 +4,5 @@ export type HabitType = {
   description: string;
   startDate: string;
   counter: number;
+  reward: number;
 };

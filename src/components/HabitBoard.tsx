@@ -17,6 +17,7 @@ export const HabitBoard = () => {
       description: "test",
       startDate: new Date().toISOString(),
       counter: 0,
+      reward: 5,
     });
   };
 
