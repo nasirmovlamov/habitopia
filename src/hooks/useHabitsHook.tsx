@@ -18,6 +18,8 @@ export const useHabitService = (): {
   initHabits: () => void;
   addHabit: (habit: HabitType) => void;
   getHabits: () => void;
+  increaseCounter: (id: number) => void;
+  decreaseCounter: (id: number) => void;
 } => {
   const [habits, setHabits] = useState<HabitType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -46,9 +48,7 @@ export const useHabitService = (): {
   const addHabit = (habit: HabitType): void => {
     setLoading(true);
     const response: GenericResponseType<HabitType[]> = habitService.add(habit);
-    console.log(response);
     if (response.data) {
-      console.log(response.data);
       setHabits(response.data);
       setErrors(null);
     } else {
@@ -75,9 +75,43 @@ export const useHabitService = (): {
     setLoading(false);
   };
 
+  const increaseCounter = (id: number): void => {
+    setLoading(true);
+    const response = habitService.increaseCounter(id);
+    if (response.data) {
+      console.log(response.data);
+      setHabits(response.data);
+      setErrors(null);
+    } else {
+      if (response.errors) {
+        setErrors(response.errors);
+      }
+    }
+    setLoading(false);
+  };
+
+  const decreaseCounter = (id: number): void => {
+    setLoading(true);
+    const response = habitService.decreaseCounter(id);
+    if (response.data) {
+      setHabits(response.data);
+      setErrors(null);
+    } else {
+      if (response.errors) {
+        setErrors(response.errors);
+      }
+
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     initHabits();
   }, []);
+
+  useEffect(() => {
+    console.log("habits", habits);
+  }, [habits]);
 
   return {
     habits,
@@ -86,5 +120,7 @@ export const useHabitService = (): {
     initHabits,
     addHabit,
     getHabits,
+    increaseCounter,
+    decreaseCounter,
   };
 };

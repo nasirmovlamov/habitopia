@@ -2,7 +2,6 @@ import { HabitServiceInterface } from "../interfaces/HabitServiceInterface";
 import { GenericResponseType } from "../model/GenericReponseType";
 import { HabitType } from "../model/HabitType";
 import { ResponseService } from "./ResponseService";
-import { DailyTaskType } from "@/model/DailyTaskType";
 
 export class HabitService implements HabitServiceInterface {
   // initialize habits from localStorage
@@ -103,7 +102,47 @@ export class HabitService implements HabitServiceInterface {
         return h;
       });
       localStorage.setItem("tasks", JSON.stringify(tasks));
-      return new ResponseService<DailyTaskType[]>(tasks);
+      return new ResponseService<HabitType[]>(tasks);
+    } catch (error) {
+      if (error instanceof Error) {
+        return new ResponseService(null, error.message);
+      }
+      return new ResponseService();
+    }
+  }
+
+  increaseCounter(id: number): GenericResponseType<HabitType[]> {
+    try {
+      const habits = (
+        JSON.parse(localStorage.getItem("habits") || "[]") as HabitType[]
+      ).map((habit) => {
+        if (habit.id === id) {
+          habit.counter++;
+        }
+        return habit;
+      });
+      localStorage.setItem("habits", JSON.stringify(habits));
+      return new ResponseService<HabitType[]>(habits);
+    } catch (error) {
+      if (error instanceof Error) {
+        return new ResponseService(null, error.message);
+      }
+      return new ResponseService();
+    }
+  }
+
+  decreaseCounter(id: number): GenericResponseType<HabitType[]> {
+    try {
+      const habits = (
+        JSON.parse(localStorage.getItem("habits") || "[]") as HabitType[]
+      ).map((habit) => {
+        if (habit.id === id) {
+          habit.counter--;
+        }
+        return habit;
+      });
+      localStorage.setItem("habits", JSON.stringify(habits));
+      return new ResponseService<HabitType[]>(habits);
     } catch (error) {
       if (error instanceof Error) {
         return new ResponseService(null, error.message);

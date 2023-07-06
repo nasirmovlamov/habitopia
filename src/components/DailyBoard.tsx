@@ -1,15 +1,20 @@
 "use client";
 
 import { useDailyTaskService } from "@/hooks/useDailyTaskHook";
+import { useDailyTaskStore } from "@/store/useDailyTaskStore";
 import { useEffect, useMemo } from "react";
+import { DailyTask } from "./DailyTask";
 
 export const DailyBoard = () => {
-  const { tasks, addTask, loading } = useDailyTaskService();
+  const {
+    dailyTasks,
+    add: addDailyTask,
+    init: initDailyTasks,
+  } = useDailyTaskStore((state) => state);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    addTask({
-      // random id
+    addDailyTask({
       id: Math.floor(Math.random() * 100),
       name: e.target.task.value,
       description: "test",
@@ -18,17 +23,14 @@ export const DailyBoard = () => {
   };
 
   const listTasks = useMemo(() => {
-    return tasks.map((task) => (
-      <div
-        key={task.id}
-        className="flex flex-col items-center bg-gray-100 p-5 rounded-md text-black text-start"
-      >
-        <div className="text-2xl w-full">{task.name}</div>
-        <div className=" w-full">{task.description}</div>
-        <div className=" w-full">{task.startDate}</div>
-      </div>
+    return dailyTasks.map((task) => (
+      <DailyTask key={task.id} dailyTask={task} />
     ));
-  }, [tasks]);
+  }, [dailyTasks]);
+
+  useEffect(() => {
+    initDailyTasks();
+  }, []);
 
   return (
     <div className="flex flex-col items-center w-[450px]">
@@ -43,14 +45,7 @@ export const DailyBoard = () => {
           className="w-full border-2 border-gray-300 rounded-md p-2 text-black"
         />
       </form>
-      <div className="flex flex-col gap-10 mt-10 w-full">
-        {!loading && listTasks}
-
-        {loading && (
-          // list tasks here
-          <div>Loading...</div>
-        )}
-      </div>
+      <div className="flex flex-col gap-10 mt-10 w-full">{listTasks}</div>
     </div>
   );
 };

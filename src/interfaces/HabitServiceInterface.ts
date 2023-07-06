@@ -9,4 +9,6 @@ export interface HabitServiceInterface extends BaseServiceInterface<HabitType> {
   list(): GenericResponseType<HabitType[]>;
   get(id: number): GenericResponseType<HabitType>;
   set(habit: HabitType): GenericResponseType<HabitType[]>;
+  increaseCounter(id: number): GenericResponseType<HabitType[]>;
+  decreaseCounter(id: number): GenericResponseType<HabitType[]>;
 }
