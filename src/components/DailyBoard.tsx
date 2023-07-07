@@ -1,6 +1,5 @@
 "use client";
 
-import { useDailyTaskService } from "@/hooks/useDailyTaskHook";
 import { useDailyTaskStore } from "@/store/useDailyTaskStore";
 import { useEffect, useMemo } from "react";
 import { DailyTask } from "./DailyTask";
@@ -14,13 +13,15 @@ export const DailyBoard = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    const startDate = new Date().toISOString();
     addDailyTask({
       id: Math.floor(Math.random() * 100),
       name: e.target.task.value,
       description: "test",
-      startDate: new Date().toISOString(),
+      startDate: startDate,
       reward: 10,
       hasCompleted: false,
+      updatedAt: startDate,
     });
   };
 
@@ -35,7 +36,7 @@ export const DailyBoard = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center w-[450px]">
+    <div className="flex flex-col items-center w-[350px]">
       <div className="text-2xl w-full">
         <span>Dailies</span>
       </div>

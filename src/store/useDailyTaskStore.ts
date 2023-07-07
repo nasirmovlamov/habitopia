@@ -18,12 +18,34 @@ export const useDailyTaskStore = create<DailyTaskStoreType>((set) => ({
   init: () => {
     try {
       const dailyTasks = localStorage.getItem("dailyTasks");
+      const initDateISO = localStorage.getItem("initDate");
       if (!dailyTasks) {
         throw new Error("Daily tasks not found");
       }
-      set((state) => ({
-        dailyTasks: JSON.parse(dailyTasks),
-      }));
+      if (initDateISO) {
+        // check if dates is different
+        const initDate = new Date(initDateISO);
+        const today = new Date();
+        set((state) => ({
+          dailyTasks: JSON.parse(dailyTasks),
+        }));
+        if (initDate.getDate() !== today.getDate()) {
+          // mark all daily tasks uncompleted and update initDate
+          const tasks = useDailyTaskStore.getState().dailyTasks.map((task) => {
+            return {
+              ...task,
+              hasCompleted: false,
+            };
+          });
+          useDailyTaskStore.getState().updateOnLocalStorage(tasks);
+          set((state) => ({
+            dailyTasks: tasks,
+          }));
+          localStorage.setItem("initDate", today.toISOString());
+        }
+      } else {
+        localStorage.setItem("initDate", new Date().toISOString());
+      }
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -78,7 +100,9 @@ export const useDailyTaskStore = create<DailyTaskStoreType>((set) => ({
   updateOnLocalStorage: (tasks: DailyTaskType[]) => {
     set((state) => {
       localStorage.setItem("dailyTasks", JSON.stringify(tasks));
-      return state;
+      return {
+        dailyTasks: tasks,
+      };
     });
   },
   add: (task: DailyTaskType) => {

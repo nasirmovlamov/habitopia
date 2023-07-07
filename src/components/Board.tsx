@@ -2,9 +2,9 @@
 
 import { DailyBoard } from "./DailyBoard";
 import { HabitBoard } from "./HabitBoard";
+import { MarketBoard } from "./MarketBoard";
 
 export const Board = () => {
-
   return (
     <div className="flex flex-col items-center">
       {/* <div className="text-2xl">Board</div> */}
@@ -12,6 +12,7 @@ export const Board = () => {
         {/* All boards goes here */}
         <HabitBoard />
         <DailyBoard />
+        <MarketBoard />
       </div>
     </div>
   );

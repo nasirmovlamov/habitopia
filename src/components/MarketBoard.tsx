@@ -3,50 +3,51 @@
 import { useEffect, useMemo } from "react";
 import { Habit } from "./Habit";
 import { useHabitStore } from "@/store/useHabitTaskStore";
+import { useMarketStore } from "@/store/useMarket";
+import { Product } from "./Product";
 
-export const HabitBoard = () => {
-  const { habits, add: addHabit, init: initHabits } = useHabitStore();
+export const MarketBoard = () => {
+  const { products, add: addProduct, init: initProducts } = useMarketStore();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    addHabit({
+    addProduct({
       id: Math.floor(Math.random() * 100),
       name: e.target.task.value,
       description: "test",
-      startDate: new Date().toISOString(),
-      counter: 0,
-      reward: 5,
+      price: 5,
+      stock: 5,
     });
   };
 
-  const listHabits = useMemo(() => {
+  const listProducts = useMemo(() => {
     return (
       <>
-        {habits.map((habit) => (
-          <Habit key={habit.id} habit={habit} />
+        {products.map((product) => (
+          <Product key={product.id} product={product} />
         ))}
       </>
     );
-  }, [habits]);
+  }, [products]);
 
   useEffect(() => {
-    initHabits();
+    initProducts();
   }, []);
 
   return (
     <div className="flex flex-col items-center w-[350px]">
       <div className="text-2xl w-full">
-        <span>Habits</span>
+        <span>Products</span>
       </div>
       <form onSubmit={handleSubmit} className="w-full  mt-5">
         <input
           name="task"
           type="text"
-          placeholder="Add a Habit"
+          placeholder="Add a Product"
           className="w-full border-2 border-gray-300 rounded-md p-2 text-black"
         />
       </form>
-      <div className="flex flex-col gap-10 mt-10 w-full">{listHabits}</div>
+      <div className="flex flex-col gap-10 mt-10 w-full">{listProducts}</div>
     </div>
   );
 };

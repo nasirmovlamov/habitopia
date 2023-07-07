@@ -1,5 +1,6 @@
 "use client";
 
+import { CoinIcon } from "@/assets/CoinIcon";
 import { useProfileStore } from "@/store/useProfileStore";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -16,7 +17,7 @@ export const Header = () => {
   }, []);
 
   return (
-    <header className="flex justify-between items-center h-16  text-white max-w-[950px] mx-auto mt-10">
+    <header className="flex justify-between items-center h-16  text-white max-w-[1150px] mx-auto mt-10">
       <div className="flex items-center">
         <div className="flex items-center">
           <div className="w-10 h-10 bg-white rounded-full ">
@@ -28,17 +29,20 @@ export const Header = () => {
           </div>
           <div className="ml-3">
             <div className="text-sm font-medium">{profile?.name}</div>
-            <div className="text-sm font-medium">{profile?.gp}</div>
+            <div className="text-sm font-medium flex items-center gap-2">
+              {" "}
+              <CoinIcon /> {profile?.gp}
+            </div>
           </div>
         </div>
       </div>
       <div className="flex items-center">
-        <button
+        {/* <button
           className="text-sm font-medium text-gray-400 hover:text-white"
           onClick={handleLogout}
         >
           Logout
-        </button>
+        </button> */}
       </div>
     </header>
   );
