@@ -4,6 +4,7 @@ import { useProfileStore } from "./useProfileStore";
 
 type HabitStoreType = {
   habits: HabitType[];
+  get: (id: number) => HabitType | undefined;
   add: (habit: HabitType) => void;
   remove: (id: number) => void;
   update: (habit: HabitType) => void;
@@ -35,6 +36,15 @@ export const useHabitStore = create<HabitStoreType>((set) => ({
       localStorage.setItem("habits", JSON.stringify(habits));
       return state;
     });
+  },
+  get: (id: number): HabitType | undefined => {
+    if (!useHabitStore.getState().habits) {
+      return undefined;
+    }
+
+    return useHabitStore
+      .getState()
+      .habits.find((habit: HabitType) => habit.id === id);
   },
   add: (habit: HabitType) => {
     set((state) => {
@@ -74,7 +84,7 @@ export const useHabitStore = create<HabitStoreType>((set) => ({
         if (t.id === id) {
           return {
             ...t,
-            counter: t.counter + 1,
+            positiveStreakCount: Number(t.positiveStreakCount) + 1,
           };
         }
         return t;
@@ -82,7 +92,7 @@ export const useHabitStore = create<HabitStoreType>((set) => ({
       state.updateOnLocalStorage(habits);
       const reward = habits.find((habit) => habit.id === id)?.reward;
       if (reward) {
-        useProfileStore.getState().gainGp(reward);
+        useProfileStore.getState().gainGp(Number(reward));
       }
       return {
         habits: habits,
@@ -95,15 +105,15 @@ export const useHabitStore = create<HabitStoreType>((set) => ({
         if (t.id === id) {
           return {
             ...t,
-            counter: t.counter - 1,
+            negativeStreakCount: Number(t.negativeStreakCount) - 1,
           };
         }
         return t;
       });
       state.updateOnLocalStorage(habits);
-      const reward = habits.find((habit) => habit.id === id)?.reward;
-      if (reward) {
-        useProfileStore.getState().gainGp(-reward);
+      const punishment = habits.find((habit) => habit.id === id)?.punishment;
+      if (punishment) {
+        useProfileStore.getState().gainGp(Number(punishment));
       }
       return {
         habits: habits,

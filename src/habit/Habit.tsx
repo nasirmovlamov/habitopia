@@ -1,6 +1,13 @@
+import { MeterIcon } from "@/assets/MeterIcon";
+import { RemoveIcon } from "@/assets/RemoveIcon";
+import ExampleMenu from "@/components/ExampleMenu";
 import { HabitType } from "@/model/HabitType";
 import { useHabitStore } from "@/store/useHabitTaskStore";
+
+import { Menu, MenuButton, MenuItem } from "@szhsin/react-menu";
+
 import useSound from "use-sound";
+import { HabitEdit } from "./HabitEdit";
 
 export const Habit = ({ habit }: { habit: HabitType }) => {
   const [playIncreaseSound] = useSound(
@@ -13,6 +20,7 @@ export const Habit = ({ habit }: { habit: HabitType }) => {
     increaseStreak: increaseCounter,
     decreaseStreak: decreaseCounter,
     remove: removeHabit,
+    update: updateHabit,
   } = useHabitStore();
 
   const handleIncrease = () => {
@@ -26,41 +34,37 @@ export const Habit = ({ habit }: { habit: HabitType }) => {
   };
 
   return (
-    <div className="relative flex justify-between  bg-gray-100   text-black text-start">
-      <button
-        onClick={() => removeHabit(habit.id)}
-        className="absolute top-0 right-0 p-2 z-20"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-red-800"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
-      </button>
+    <div className="relative flex justify-between  bg-gray-100   text-black text-start rounded-lg">
       <button
         onClick={handleIncrease}
         className="bg-green-500 p-3 text-white grid place-items-center"
+        style={{
+          borderTopLeftRadius: "0.5rem",
+          borderBottomLeftRadius: "0.5rem",
+        }}
       >
         +
       </button>
-      <div className="flex flex-col w-full p-5">
+      <div className="flex flex-col w-full p-5 relative">
+        <div className="flex justify-end gap-3 absolute right-0 top-0">
+          <HabitEdit habit={habit} />
+        </div>
         <div className="text-2xl w-full">{habit.name}</div>
         <div className=" w-full">{habit.description}</div>
-        <div className=" w-full">{habit.startDate}</div>
-        <div className=" w-full">{habit.counter}</div>
+        <div className=" w-full flex justify-end gap-1 text-gray-400 text-xs items-center">
+          <MeterIcon />
+          <span>{habit.positiveStreakCount}</span>
+          <span>|</span>
+          <span>{habit.negativeStreakCount}</span>
+        </div>
       </div>
       <button
         onClick={handleDecrease}
-        className="bg-red-500  p-3 text-white  grid place-items-center"
+        className="bg-red-500 text-white p-3   grid place-items-center"
+        style={{
+          borderTopRightRadius: "0.5rem",
+          borderBottomRightRadius: "0.5rem",
+        }}
       >
         -
       </button>

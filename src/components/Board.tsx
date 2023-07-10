@@ -1,7 +1,7 @@
 "use client";
 
+import { HabitBoard } from "@/habit/HabitBoard";
 import { DailyBoard } from "./DailyBoard";
-import { HabitBoard } from "./HabitBoard";
 import { MarketBoard } from "./MarketBoard";
 
 export const Board = () => {

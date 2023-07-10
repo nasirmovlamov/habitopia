@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo } from "react";
-import { Habit } from "./Habit";
+import { Habit } from "../habit/Habit";
 import { useHabitStore } from "@/store/useHabitTaskStore";
 import { useMarketStore } from "@/store/useMarket";
 import { Product } from "./Product";

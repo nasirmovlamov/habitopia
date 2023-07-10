@@ -3,6 +3,11 @@ export type HabitType = {
   name: string;
   description: string;
   startDate: string;
-  counter: number;
+  positiveStreakCount: number;
+  negativeStreakCount: number;
+  isPositiveActive: boolean;
+  isNegativeActive: boolean;
   reward: number;
+  punishment: number;
 };
+

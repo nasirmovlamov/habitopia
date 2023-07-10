@@ -41,12 +41,12 @@ export const useProfileStore = create<ProfileStoreType>((set) => ({
     set((state) => {
       state.updateOnLocalStorage({
         ...state.profile,
-        gp: state.profile.gp + gp,
+        gp: Number(state.profile.gp) + Number(gp),
       });
       return {
         profile: {
           ...state.profile,
-          gp: state.profile.gp + gp,
+          gp: Number(state.profile.gp) + Number(gp),
         },
       };
     });
