@@ -1,6 +1,6 @@
-import { ProductType } from "@/model/ProductType";
 import { create } from "zustand";
 import { useProfileStore } from "./useProfileStore";
+import { ProductType } from "@/models/ProductType";
 
 type MarketStoreType = {
   products: ProductType[];

@@ -1,8 +1,8 @@
 "use client";
 
-import { HabitBoard } from "@/habit/HabitBoard";
-import { DailyBoard } from "./DailyBoard";
-import { MarketBoard } from "./MarketBoard";
+import { HabitBoard } from "@/habits/HabitBoard";
+import { DailyBoard } from "../tasks/DailyBoard";
+import { MarketBoard } from "../market/MarketBoard";
 
 export const Board = () => {
   return (

@@ -1,4 +1,4 @@
-import { ProfileType } from "@/model/ProfileType";
+import { ProfileType } from "@/models/ProfileType";
 import { create } from "zustand";
 
 type ProfileStoreType = {

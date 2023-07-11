@@ -1,13 +1,13 @@
 import { MeterIcon } from "@/assets/MeterIcon";
 import { RemoveIcon } from "@/assets/RemoveIcon";
 import ExampleMenu from "@/components/ExampleMenu";
-import { HabitType } from "@/model/HabitType";
 import { useHabitStore } from "@/store/useHabitTaskStore";
 
 import { Menu, MenuButton, MenuItem } from "@szhsin/react-menu";
 
 import useSound from "use-sound";
 import { HabitEdit } from "./HabitEdit";
+import { HabitType } from "@/models/HabitType";
 
 export const Habit = ({ habit }: { habit: HabitType }) => {
   const [playIncreaseSound] = useSound(

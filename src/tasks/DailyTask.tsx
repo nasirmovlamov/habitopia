@@ -1,4 +1,4 @@
-import { DailyTaskType } from "@/model/DailyTaskType";
+import { DailyTaskType } from "@/models/DailyTaskType";
 import { useDailyTaskStore } from "@/store/useDailyTaskStore";
 import useSound from "use-sound";
 

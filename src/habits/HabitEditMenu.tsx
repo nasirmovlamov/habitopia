@@ -1,5 +1,5 @@
 import { ThreeDotIcon } from "@/assets/ThreeDotIcon";
-import { HabitType } from "@/model/HabitType";
+import { HabitType } from "@/models/HabitType";
 import { useHabitStore } from "@/store/useHabitTaskStore";
 import { Menu, MenuItem, MenuButton } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/index.css";

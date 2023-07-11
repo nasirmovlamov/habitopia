@@ -1,6 +1,6 @@
-import { DailyTaskType } from "@/model/DailyTaskType";
 import { create } from "zustand";
 import { useProfileStore } from "./useProfileStore";
+import { DailyTaskType } from "@/models/DailyTaskType";
 
 type DailyTaskStoreType = {
   dailyTasks: DailyTaskType[];

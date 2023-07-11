@@ -1,6 +1,6 @@
 import { CoinIcon } from "@/assets/CoinIcon";
 import { StockIcon } from "@/assets/StockIcon";
-import { ProductType } from "@/model/ProductType";
+import { ProductType } from "@/models/ProductType";
 import { useMarketStore } from "@/store/useMarket";
 import { toast } from "react-hot-toast";
 import useSound from "use-sound";

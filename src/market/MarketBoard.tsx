@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useMemo } from "react";
-import { Habit } from "../habit/Habit";
 import { useHabitStore } from "@/store/useHabitTaskStore";
 import { useMarketStore } from "@/store/useMarket";
-import { Product } from "./Product";
+import { Product } from "../components/Product";
 
 export const MarketBoard = () => {
   const { products, add: addProduct, init: initProducts } = useMarketStore();

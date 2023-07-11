@@ -1,6 +1,6 @@
-import { HabitType } from "@/model/HabitType";
 import { create } from "zustand";
 import { useProfileStore } from "./useProfileStore";
+import { HabitType } from "@/models/HabitType";
 
 type HabitStoreType = {
   habits: HabitType[];
