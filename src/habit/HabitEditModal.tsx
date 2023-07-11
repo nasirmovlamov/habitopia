@@ -1,6 +1,6 @@
 import { RemoveIcon } from "@/assets/RemoveIcon";
 import { FormInputWrapper } from "@/components/FormInputWrapper";
-import { HabitType, HabitUpdateDtoType } from "@/model/HabitType";
+import { HabitType } from "@/model/HabitType";
 import { useHabitStore } from "@/store/useHabitTaskStore";
 import { toCapitalize } from "@/utils/toCapitalize";
 import { useEffect } from "react";
