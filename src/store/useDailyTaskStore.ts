@@ -6,7 +6,7 @@ type DailyTaskStoreType = {
   dailyTasks: DailyTaskType[];
   add: (task: DailyTaskType) => void;
   remove: (id: number) => void;
-  update: (task: DailyTaskType) => void;
+  update: (task: Omit<DailyTaskType, "startDate" | "updatedAt">) => void;
   init: () => void;
   updateOnLocalStorage: (tasks: DailyTaskType[]) => void;
   complete: (id: number) => void;
@@ -113,7 +113,7 @@ export const useDailyTaskStore = create<DailyTaskStoreType>((set) => ({
       };
     });
   },
-  remove: (id: number) => {
+  remove: (id) => {
     set((state) => {
       state.updateOnLocalStorage(
         state.dailyTasks.filter((task) => task.id !== id)
@@ -123,11 +123,15 @@ export const useDailyTaskStore = create<DailyTaskStoreType>((set) => ({
       };
     });
   },
-  update: (task: DailyTaskType) => {
+  update: (task) => {
     set((state) => {
       const tasks = state.dailyTasks.map((t) => {
         if (t.id === task.id) {
-          return task;
+          return {
+            ...task,
+            startDate: t.startDate,
+            updatedAt: new Date().toISOString(),
+          };
         }
         return t;
       });

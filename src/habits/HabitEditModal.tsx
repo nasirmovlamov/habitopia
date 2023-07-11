@@ -48,7 +48,7 @@ export const HabitEditModal = ({
       reward: habit.reward,
       punishment: habit.punishment,
     });
-  }, [habit]);
+  }, [habit, reset]);
 
   const handleSubmit = (data: Omit<HabitType, "id">) => {
     try {

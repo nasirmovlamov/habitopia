@@ -21,7 +21,7 @@ export const HabitBoard = () => {
 
   return (
     <div className="flex flex-col items-center w-[350px]">
-      <div className="text-2xl w-full">
+      <div className="text-[20px] w-full font-bold">
         <span>Habits</span>
       </div>
       <CreateHabit />

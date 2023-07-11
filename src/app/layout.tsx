@@ -1,10 +1,13 @@
 "use client";
 
 import { Header } from "@/components/Header";
-import { Inter } from "next/font/google";
+import { Inter, Roboto_Condensed } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
-const inter = Inter({ subsets: ["latin"] });
+const roboto = Roboto_Condensed({
+  weight: ["300", "400"],
+  subsets: ["latin"],
+});
 
 const metadata = {
   title: "Create Next App",
@@ -18,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={roboto.className}>
         {/* welcome to habitopia */}
         <h1 className="text-6xl text-center mt-20">
           <span className="text-red-500">welcome</span> to{" "}

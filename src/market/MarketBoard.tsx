@@ -35,7 +35,7 @@ export const MarketBoard = () => {
 
   return (
     <div className="flex flex-col items-center w-[350px]">
-      <div className="text-2xl w-full">
+      <div className="text-[20px] w-full font-bold">
         <span>Products</span>
       </div>
       <form onSubmit={handleSubmit} className="w-full  mt-5">

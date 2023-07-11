@@ -19,8 +19,8 @@ export const FormInputWrapper = ({
   inputType?: string;
 }) => {
   return (
-    <div className="flex flex-col gap-1">
-      <label htmlFor="" className="text-sm capitalize">
+    <div className="flex flex-col gap-1 items-start w-full">
+      <label htmlFor="" className="text-sm capitalize w-full">
         {label}
       </label>
       <input
@@ -28,9 +28,9 @@ export const FormInputWrapper = ({
         {...register(fieldName, {
           required: required,
         })}
-        className="border-2 border-gray-300 rounded-md p-2 text-black"
+        className="border-2 border-gray-300 rounded-md p-2 text-black w-full"
       />
-      <span className="text-red-500 text-sm">
+      <span className="text-red-500 text-sm w-full">
         {errors[fieldName] &&
           toCapitalize(errorMessage || `${fieldName} is required`)}
       </span>

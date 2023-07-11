@@ -1,6 +1,7 @@
 import { DailyTaskType } from "@/models/DailyTaskType";
 import { useDailyTaskStore } from "@/store/useDailyTaskStore";
 import useSound from "use-sound";
+import { DailyTaskEdit } from "./DailyTaskEdit";
 
 export const DailyTask = ({ dailyTask }: { dailyTask: DailyTaskType }) => {
   const [play] = useSound(
@@ -27,8 +28,14 @@ export const DailyTask = ({ dailyTask }: { dailyTask: DailyTaskType }) => {
   };
 
   return (
-    <div className="relative flex justify-between  bg-gray-100   text-black text-start">
-      <div className="flex flex-col py-5 px-2">
+    <div className="relative flex justify-between  bg-gray-100 text-black text-start rounded-lg min-h-[120px] box-border">
+      <div
+        className="flex flex-col py-5 px-2 bg-orange-400"
+        style={{
+          borderTopLeftRadius: "0.5rem",
+          borderBottomLeftRadius: "0.5rem",
+        }}
+      >
         <input
           type="checkbox"
           onClick={handleCompletionOfTask}
@@ -36,31 +43,34 @@ export const DailyTask = ({ dailyTask }: { dailyTask: DailyTaskType }) => {
           className="w-8 h-8"
         />
       </div>
-      <div className="flex flex-col w-full py-5 ">
+      <div className="flex flex-col w-full p-5 relative">
+        <div className="flex justify-end gap-3 absolute right-1 top-2">
+          <DailyTaskEdit dailyTask={dailyTask} />
+        </div>
         <div className="text-2xl w-full">{dailyTask.name}</div>
         <div className=" w-full">{dailyTask.description}</div>
-        <div className=" w-full">{dailyTask.startDate}</div>
+        <div className="text-[9px] w-full text-gray-400 text-end">
+          Started /{" "}
+          {new Date(dailyTask.startDate).toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "numeric",
+          })}
+        </div>
+        {/* updated at with gray and nice text */}
+        <div className="text-[9px] w-full text-gray-400 text-end">
+          Last Updated /{" "}
+          {new Date(dailyTask.updatedAt).toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "numeric",
+          })}
+        </div>
       </div>
-      {/* absolute remove button */}
-      <button
-        onClick={() => removeDailyTask(dailyTask.id)}
-        className="absolute top-0 right-0 p-2"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-red-500"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
-      </button>
     </div>
   );
 };
