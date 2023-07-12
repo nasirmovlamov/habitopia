@@ -4,6 +4,7 @@ import { ProductType } from "@/models/ProductType";
 import { useMarketStore } from "@/store/useMarket";
 import { toast } from "react-hot-toast";
 import useSound from "use-sound";
+import { ProductEdit } from "./ProductEdit";
 
 export const Product = ({ product }: { product: ProductType }) => {
   const [playRewardSound] = useSound(
@@ -58,49 +59,47 @@ export const Product = ({ product }: { product: ProductType }) => {
   };
 
   return (
-    <div className="relative flex justify-between  bg-gray-100   text-black text-start">
-      <button
-        onClick={handleRemove}
-        className="absolute top-0 right-0 p-2 z-20"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-red-800"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
-      </button>
-
-      <div className="flex flex-col w-full p-5">
+    <div className="relative flex justify-between  bg-gray-100   text-black text-start rounded-lg min-h-[120px] box-border">
+      <div className="flex flex-col w-full p-5 relative">
         <div className="text-2xl w-full">{product.name}</div>
         <div className=" w-full">{product.description}</div>
+
         <div className=" w-full flex items-center gap-2">
-          {product.price}
-          <CoinIcon />
+          <span>{product.stock}</span>
+          <StockIcon />
+          <div className="flex gap-1 h-max">
+            <button
+              onClick={handleIncreaseStock}
+              className="text-xs rounded-lg px-2 bg-green-300 text-black"
+            >
+              +
+            </button>
+            <button
+              onClick={handleDecreaseStock}
+              className="text-xs rounded-lg px-2 bg-orange-300 text-black"
+            >
+              -
+            </button>
+          </div>
         </div>
-        <div className=" w-full flex items-center gap-2">
-          {" "}
-          {product.stock} <StockIcon />
-        </div>
-        <div>
-          <button onClick={handleIncreaseStock}>+</button>
-          <button onClick={handleDecreaseStock}>-</button>
+
+        <div className="absolute top-2 right-2">
+          <ProductEdit product={product} />
         </div>
       </div>
       {/* buy button */}
       <button
         onClick={handleBuy}
-        className="bg-green-500 p-3 text-white grid place-items-center"
+        className="bg-[rgba(255,190,93,.15)] p-3 text-white grid place-items-center"
+        style={{
+          borderTopRightRadius: "0.5rem",
+          borderBottomRightRadius: "0.5rem",
+        }}
       >
-        buy
+        <div className="flex  flex-col text-gray-600">
+          <CoinIcon width={30} height={30} />
+          <span className="text-xs font-bold ">{product.price}</span>
+        </div>
       </button>
     </div>
   );
