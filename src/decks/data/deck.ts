@@ -3,55 +3,64 @@ export interface IDeck {
   urgency: number;
   desire: number;
   importancy: number;
-  clockify: string;
+  clockify: number;
   badges: string[];
   average: number;
 }
 
 export const deck: IDeck[] = [
   {
-    name: "tanner",
+    name: "hobby",
     urgency: 1,
     desire: 1,
-    importancy: 10,
-    clockify: "2",
-    badges: ["test"],
+    importancy: 1,
+    clockify: 0,
+    badges: [],
     average: 1,
   },
   {
-    name: "tanner",
+    name: "books",
     urgency: 1,
     desire: 1,
-    importancy: 10,
-    clockify: "2",
-    badges: ["test"],
+    importancy: 1,
+    clockify: 2,
+    badges: [],
     average: 1,
   },
   {
-    name: "tanner",
+    name: "computer-science",
     urgency: 1,
     desire: 1,
     importancy: 10,
-    clockify: "2",
-    badges: ["test"],
+    clockify: 2,
+    badges: [],
     average: 1,
   },
   {
-    name: "tanner",
+    name: "life",
     urgency: 1,
     desire: 1,
     importancy: 10,
-    clockify: "2",
-    badges: ["test", "test2"],
+    clockify: 2,
+    badges: [],
     average: 1,
   },
   {
-    name: "tanner",
+    name: "movie",
     urgency: 1,
     desire: 1,
     importancy: 10,
-    clockify: "2",
-    badges: ["test"],
+    clockify: 2,
+    badges: [],
+    average: 1,
+  },
+  {
+    name: "music",
+    urgency: 1,
+    desire: 1,
+    importancy: 10,
+    clockify: 2,
+    badges: [],
     average: 1,
   },
 ];

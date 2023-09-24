@@ -107,10 +107,13 @@ export const DeckTable = () => {
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} style={{
-                  marginTop: "18px",
-                  marginBottom:"18px"
-            }}>
+            <tr
+              key={row.id}
+              style={{
+                marginTop: "18px",
+                marginBottom: "18px",
+              }}
+            >
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}

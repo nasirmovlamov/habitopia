@@ -1,10 +1,10 @@
-"use client"
-import { DeckTable } from "@/decks/DeckTable";
+"use client";
+import { BadgesTable } from "@/badges/BadgesTable";
 
 export default function Page() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-      <DeckTable />
+      <BadgesTable />
     </main>
   );
 }
