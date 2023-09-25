@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Inter, Roboto_Condensed } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
+import { TopNav } from "@/components/TopNav";
 const roboto = Roboto_Condensed({
   weight: ["300", "400"],
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({
           <span className="text-green-500">opia</span>
         </h1>
         <Header />
+        <TopNav />
         {children}
         <Toaster />
       </body>
