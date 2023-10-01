@@ -37,7 +37,7 @@ export const ProgressedTask = ({
   };
 
   const progress = parseInt(
-    ((progressedTask.progress / progressedTask.limit) * 100).toFixed(2)
+    ((progressedTask.progress / (progressedTask.limit * 60)) * 100).toFixed(2)
   );
 
   return (
@@ -68,7 +68,7 @@ export const ProgressedTask = ({
             achieved {progressedTask.progress} min
           </span>
           <span className="bg-gray-200 px-2 py-1 rounded-lg text-xs mr-2">
-            planned {progressedTask.limit} min
+            planned {progressedTask.limit * 60} min
           </span>
           <div className="w-full"></div>
           <span className="bg-gray-200 px-2 py-1 rounded-lg text-xs mr-2">
